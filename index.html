@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">		
+		<link href = "style.css" rel = "stylesheet" type = "text/css"/>
+	</head>
+	<body>
+		<canvas id = 'canvas'></canvas>
+		<div id = "container" class = "buttons">
+			<button class = "button btn btn-success" onclick = "draw(getRandomInt(0, pageWidth), getRandomInt(0, pageHeight))">Draw</button>
+			<button class = "button btn btn-danger" onclick = "clearScreen()">Clear</button>
+		</div>
+		<script type = "application/javascript" language = "javascript">
+			yDirection = 2
+			xDirection = 2
+			rectHeight = 35
+			rectWidth = 35
+			pageWidth = window.innerWidth;
+			pageHeight = window.innerHeight;
+			ctx = canvas.getContext('2d');
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			function init(){
+				canvas = document.getElementById("canvas");
+				canvas.width = pageWidth
+				canvas.height = pageHeight *.8;
+			}
+			init()
+			function draw(x, y){
+				var canvas = document.getElementById('canvas');
+				var lineColor = "rgba(" + String(getRandomInt(0, 255)) + ","+ String(getRandomInt(0, 255)) + "," + String(getRandomInt(0, 255)) + ",1)"
+				console.log(lineColor)
+				ctx.save();
+				ctx.fillStyle = lineColor; //style for green box
+				ctx.fillRect (x, y, rectHeight, rectWidth) //draws the rectangle
+				ctx.restore();
+				x += xDirection;
+				y += yDirection;
+				if (y > canvas.height - rectHeight){
+					yDirection *= -1;
+				}else if (y < 0){
+					yDirection *= -1
+				}else if (x > canvas.width - rectWidth){
+					xDirection *= -1
+				}else if (x < 0){
+					xDirection *= -1
+				}
+				loopTime = setTimeout('draw('+x+', '+y+')', .1);
+			}
+			function clearScreen(){
+				ctx.clearRect(0, 0, pageWidth, pageHeight)
+				clearTimeout(loopTime)
+			}
+		</script>
+	</body>
+</html>
