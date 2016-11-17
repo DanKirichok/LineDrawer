@@ -1,7 +1,10 @@
-*{margin: 0;
-  padding: 0;}
-canvas{border: #666 1px solid;
-	   display:block;}
+*{
+	margin: 0;
+	padding: 0;
+}
+canvas{
+	display:block;
+}
 .buttons{
 	text-align: center;
 	padding-top: 10px;
